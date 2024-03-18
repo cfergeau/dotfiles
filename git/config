@@ -1,0 +1,27 @@
+[color]
+	ui = true
+
+[user]
+	name = Christophe Fergeau
+	email = cfergeau@redhat.com
+
+[core]
+	editor = nvim
+
+[alias]
+        tracks = "!f() { if p=`git rev-parse --symbolic-full-name @{u} 2>/dev/null`; then echo ${p}; fi; }; f"
+        other-heads = "!f() { curref=$(git symbolic-ref -q HEAD); curref=${curref##*/}; g=$(git rev-parse --git-dir); l=$(ls ${g}/refs/heads | grep -v $curref); echo $l; }; f"
+        other-branches = "!f() { curref=$(git symbolic-ref -q HEAD); curref=${curref##*/}; g=$(git rev-parse --git-dir); heads=$(git branch | grep -v $curref); echo $heads; } ; f"
+        new-commits = !git rev-list HEAD --not `git other-branches`
+        whatsnew = "rev-list HEAD..@{u}"
+        lol = "log --oneline --decorate"
+        lolr = "log --oneline --decorate --reverse"
+        to-push = "log --oneline --decorate --reverse @{u}.."
+        pur = "pull --rebase"
+        branch-info = "!sh -c 'git branch --list --no-color | \
+                sed -e \"s/*/ /\" | \
+                while read branch; do \
+                git log -1 --format=format:\"%Cred$branch:%Cblue %s %Cgreen%h%Creset (%ar)\" $branch; \
+                done'"
+[init]
+	defaultBranch = main
