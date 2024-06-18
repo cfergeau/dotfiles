@@ -9,6 +9,12 @@ Plug 'tpope/vim-sensible'
 " https://github.com/tpope/vim-sleuth
 Plug 'tpope/vim-sleuth'
 
+" Easily install and manage LSP servers, DAP servers, linters, and formatters.
+" TODO: autoinstall at least gopls and golangci-lint-lsp
+" https://github.com/williamboman/mason-lspconfig.nvim?tab=readme-ov-file#configuration
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+
 " Plug 'fatih/vim-go'
 " TODO recommended configuration
 " https://github.com/neovim/nvim-lspconfig#suggested-configuration
@@ -66,6 +72,11 @@ call plug#end()
 lua <<EOF
 require('telescope').setup()
 require('telescope').load_extension('git_grep')
+EOF
+
+lua <<EOF
+require("mason").setup()
+require("mason-lspconfig").setup()
 EOF
 
 runtime treesitter.vim
