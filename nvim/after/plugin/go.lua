@@ -1,6 +1,5 @@
-" https://github.com/golang/tools/blob/master/gopls/doc/vim.md#neovim-v050
-"
-lua <<EOF
+-- https://github.com/golang/tools/blob/master/gopls/doc/vim.md#neovim-v050
+
 local lspconfig = require("lspconfig")
 require('lspconfig').gopls.setup({
   settings = {
@@ -16,9 +15,7 @@ require('lspconfig').gopls.setup({
 
 -- https://github.com/nametake/golangci-lint-langserver?tab=readme-ov-file#configuration-for-nvim-lspconfig
 require('lspconfig').golangci_lint_ls.setup{}
-EOF
 
-lua <<EOF
 -- https://github.com/golang/tools/blob/master/gopls/doc/vim.md#imports-and-formatting
 -- Use the following configuration to have your imports organized on save using
 -- the logic of goimports and your code formatted.
@@ -46,4 +43,3 @@ autocmd("BufWritePre", {
     vim.lsp.buf.format({async = false})
   end
 })
-EOF

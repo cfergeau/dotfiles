@@ -80,4 +80,3 @@ require("mason-lspconfig").setup()
 EOF
 
 runtime treesitter.vim
-runtime go.vim
