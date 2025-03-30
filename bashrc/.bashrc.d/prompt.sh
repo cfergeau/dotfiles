@@ -10,7 +10,7 @@ GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWCOLORHINTS=1
 export GIT_PS1_SHOWDIRTYSTATE
 export GIT_PS1_SHOWCOLORHINTS
-source ~/.local/share/git-core/contrib/completion/git-prompt.sh
+source /usr/share/git-core/contrib/completion/git-prompt.sh
 PROMPT_COMMAND=""
 declare -a PROMPT_COMMAND
 #PROMPT_COMMAND+=(__toolbox_hex)
