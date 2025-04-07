@@ -1,3 +1,9 @@
+[sendemail]
+     suppresscc = self
+     envelopesender = auto
+     confirm = always
+     chainreplyto = no
+
 [color]
 	ui = true
 
@@ -9,6 +15,7 @@
 	editor = nvim
 
 [alias]
+        ggrep = "grep --break --heading --line-number"
         tracks = "!f() { if p=`git rev-parse --symbolic-full-name @{u} 2>/dev/null`; then echo ${p}; fi; }; f"
         other-heads = "!f() { curref=$(git symbolic-ref -q HEAD); curref=${curref##*/}; g=$(git rev-parse --git-dir); l=$(ls ${g}/refs/heads | grep -v $curref); echo $l; }; f"
         other-branches = "!f() { curref=$(git symbolic-ref -q HEAD); curref=${curref##*/}; g=$(git rev-parse --git-dir); heads=$(git branch | grep -v $curref); echo $heads; } ; f"
@@ -23,5 +30,20 @@
                 while read branch; do \
                 git log -1 --format=format:\"%Cred$branch:%Cblue %s %Cgreen%h%Creset (%ar)\" $branch; \
                 done'"
+	bb = !/home/teuf/.local/bin/git-better-branch.sh
+	wdiff = diff --word-diff
 [init]
 	defaultBranch = main
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[diff]
+	algorithm = histogram
+[merge]
+	conflictstyle = zdiff3
+[rerere]
+	enabled = true
+[branch]
+	sort = -committerdate
