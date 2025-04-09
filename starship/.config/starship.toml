@@ -22,3 +22,7 @@ disabled = true
 # disable "via 🐹 v1.24.2"
 [golang]
 disabled = true
+
+# disable "via 🐍 v3.13.2"
+[python]
+disabled = true
