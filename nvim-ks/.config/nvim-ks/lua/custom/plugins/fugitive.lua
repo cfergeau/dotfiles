@@ -10,23 +10,5 @@ return {
 			vim.keymap.set("n", "<leader>gc", ':Git commit -qam "', { noremap = true, desc = "git commit -am" })
 		end,
 	},
-	{
-		"lewis6991/gitsigns.nvim",
-		config = function()
-			require("gitsigns").setup()
-			--gitsigns
-			vim.keymap.set(
-				"n",
-				"<leader>gh",
-				":Gitsigns preview_hunk<CR>",
-				{ noremap = true, desc = "Gitsigns: preview [h]unk" }
-			)
-			vim.keymap.set(
-				"n",
-				"<leader>gi",
-				":Gitsigns preview_hunk_inline<CR>",
-				{ noremap = true, desc = "Gitsigns: preview hunk [i]nline" }
-			)
-		end,
-	},
 }
+-- vim: ts=2 sts=2 sw=2 et
