@@ -10,6 +10,7 @@
 [user]
 	name = Christophe Fergeau
 	email = cfergeau@redhat.com
+	signingKey = /var/home/teuf/.ssh/id_ed25519_sk.pub
 
 [core]
 	editor = nvim
@@ -47,3 +48,5 @@
 	enabled = true
 [branch]
 	sort = -committerdate
+[gpg]
+	format = ssh
