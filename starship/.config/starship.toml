@@ -1,102 +1,254 @@
-# Insert a blank line between shell prompts
-add_newline = true
+"$schema" = 'https://starship.rs/config-schema.json'
 
-# Increase the default command timeout to 2 seconds
-command_timeout = 2000
-
-# Place this line directly under the `command_timeout` entry at the top of the file
-palette = "catppuccin_macchiato"
-
-# Define the order and format of the information in our prompt
-# [](fg:#3B76F0)\
-#$symbol($git_branch[](fg:#FCF392))\
-format = """\
-[](fg:lavender)\
+format = """
+[](red)\
+$os\
+$username\
+[](bg:peach fg:red)\
 $directory\
-${custom.directory_separator_not_git}\
-${custom.directory_separator_git}\
-$symbol($git_branch[](fg:yellow))\
-$symbol( $git_commit$git_status$git_metrics$git_state)$fill$cmd_duration$nodejs$all\
-${custom.git_config_email}
+[](bg:yellow fg:peach)\
+$git_branch\
+$git_status\
+[](fg:yellow bg:green)\
+$c\
+$rust\
+$golang\
+$nodejs\
+$php\
+$java\
+$kotlin\
+$haskell\
+$python\
+[](fg:green bg:sapphire)\
+$conda\
+[](fg:sapphire bg:lavender)\
+$time\
+[ ](fg:lavender)\
+$cmd_duration\
+$line_break\
 $character"""
 
-# Fill character (empty space) between the left and right prompt
-[fill]
-symbol = " "
+palette = 'catppuccin_mocha'
 
-# Disable the line break between the first and second prompt lines
+[os]
+disabled = false
+style = "bg:red fg:crust"
+
+[os.symbols]
+Windows = ""
+Ubuntu = "󰕈"
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = "󰀵"
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Amazon = ""
+Android = ""
+Arch = "󰣇"
+Artix = "󰣇"
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
+
+[username]
+show_always = true
+style_user = "bg:red fg:crust"
+style_root = "bg:red fg:crust"
+format = '[ $user]($style)'
+
+[directory]
+style = "bg:peach fg:crust"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = "󰝚 "
+"Pictures" = " "
+"Developer" = "󰲋 "
+
+[git_branch]
+symbol = ""
+style = "bg:yellow"
+format = '[[ $symbol $branch ](fg:crust bg:yellow)]($style)'
+
+[git_status]
+style = "bg:yellow"
+format = '[[($all_status$ahead_behind )](fg:crust bg:yellow)]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:green"
+format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
+
+[c]
+symbol = " "
+style = "bg:green"
+format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
+
+[rust]
+symbol = ""
+style = "bg:green"
+format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
+
+[golang]
+symbol = ""
+style = "bg:green"
+format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
+
+[php]
+symbol = ""
+style = "bg:green"
+format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
+
+[java]
+symbol = " "
+style = "bg:green"
+format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
+
+[kotlin]
+symbol = ""
+style = "bg:green"
+format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
+
+[haskell]
+symbol = ""
+style = "bg:green"
+format = '[[ $symbol( $version) ](fg:crust bg:green)]($style)'
+
+[python]
+symbol = ""
+style = "bg:green"
+format = '[[ $symbol( $version)(\(#$virtualenv\)) ](fg:crust bg:green)]($style)'
+
+[docker_context]
+symbol = ""
+style = "bg:sapphire"
+format = '[[ $symbol( $context) ](fg:crust bg:sapphire)]($style)'
+
+[conda]
+symbol = "  "
+style = "fg:crust bg:sapphire"
+format = '[$symbol$environment ]($style)'
+ignore_base = false
+
+[time]
+disabled = false
+time_format = "%R"
+style = "bg:lavender"
+format = '[[  $time ](fg:crust bg:lavender)]($style)'
+
 [line_break]
 disabled = true
 
-# Customize the format of the working directory
-[directory]
-truncate_to_repo = true
-format = "[🖿 $path ]($style)"
-style = "fg:base bg:lavender"
-# style = "fg:text bg:#3B76F0"
-
-[git_branch]
-symbol = " "
-format = "[ $symbol$branch(:$remote_branch) ]($style)"
-style = "fg:mantle bg:yellow"
-
-[git_metrics]
+[character]
 disabled = false
+success_symbol = '[❯](bold fg:green)'
+error_symbol = '[❯](bold fg:red)'
+vimcmd_symbol = '[❮](bold fg:green)'
+vimcmd_replace_one_symbol = '[❮](bold fg:lavender)'
+vimcmd_replace_symbol = '[❮](bold fg:lavender)'
+vimcmd_visual_symbol = '[❮](bold fg:yellow)'
 
-[nodejs]
-format = "via [$symbol($version )]($style)"
-style = "yellow"
-
-[package]
-disabled = true # Enable to output the current working directory's package version
-format = "[$symbol$version]($style) "
-display_private = true
-
-# Output the command duration if over 2 seconds
 [cmd_duration]
-disabled = true
-min_time = 2_000
-format = "[  $duration ]($style)"
-style = "white"
+show_milliseconds = true
+format = " in $duration "
+style = "bg:lavender"
+disabled = false
+show_notifications = true
+min_time_to_notify = 45000
 
-# Customize the battery indicator
-[battery]
-format = "[$symbol $percentage]($style) "
-empty_symbol = "🪫"
-charging_symbol = "🔋"
-full_symbol = '🔋'
+[palettes.catppuccin_mocha]
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+pink = "#f5c2e7"
+mauve = "#cba6f7"
+red = "#f38ba8"
+maroon = "#eba0ac"
+peach = "#fab387"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+teal = "#94e2d5"
+sky = "#89dceb"
+sapphire = "#74c7ec"
+blue = "#89b4fa"
+lavender = "#b4befe"
+text = "#cdd6f4"
+subtext1 = "#bac2de"
+subtext0 = "#a6adc8"
+overlay2 = "#9399b2"
+overlay1 = "#7f849c"
+overlay0 = "#6c7086"
+surface2 = "#585b70"
+surface1 = "#45475a"
+surface0 = "#313244"
+base = "#1e1e2e"
+mantle = "#181825"
+crust = "#11111b"
 
-[[battery.display]]
-threshold = 10
-style = 'red'
+[palettes.catppuccin_frappe]
+rosewater = "#f2d5cf"
+flamingo = "#eebebe"
+pink = "#f4b8e4"
+mauve = "#ca9ee6"
+red = "#e78284"
+maroon = "#ea999c"
+peach = "#ef9f76"
+yellow = "#e5c890"
+green = "#a6d189"
+teal = "#81c8be"
+sky = "#99d1db"
+sapphire = "#85c1dc"
+blue = "#8caaee"
+lavender = "#babbf1"
+text = "#c6d0f5"
+subtext1 = "#b5bfe2"
+subtext0 = "#a5adce"
+overlay2 = "#949cbb"
+overlay1 = "#838ba7"
+overlay0 = "#737994"
+surface2 = "#626880"
+surface1 = "#51576d"
+surface0 = "#414559"
+base = "#303446"
+mantle = "#292c3c"
+crust = "#232634"
 
-# Output the current git config email address
-[custom.git_config_email]
-description = "Output the current git user's configured email address."
-command = "git config user.email"
-format = "\n[$symbol(  $output)]($style)"
-# Only when inside git repository
-when = "git rev-parse --is-inside-work-tree >/dev/null 2>&1"
-style = "text"
+[palettes.catppuccin_latte]
+rosewater = "#dc8a78"
+flamingo = "#dd7878"
+pink = "#ea76cb"
+mauve = "#8839ef"
+red = "#d20f39"
+maroon = "#e64553"
+peach = "#fe640b"
+yellow = "#df8e1d"
+green = "#40a02b"
+teal = "#179299"
+sky = "#04a5e5"
+sapphire = "#209fb5"
+blue = "#1e66f5"
+lavender = "#7287fd"
+text = "#4c4f69"
+subtext1 = "#5c5f77"
+subtext0 = "#6c6f85"
+overlay2 = "#7c7f93"
+overlay1 = "#8c8fa1"
+overlay0 = "#9ca0b0"
+surface2 = "#acb0be"
+surface1 = "#bcc0cc"
+surface0 = "#ccd0da"
+base = "#eff1f5"
+mantle = "#e6e9ef"
+crust = "#dce0e8"
 
-# Output a styled separator right after the directory when inside a git repository.
-[custom.directory_separator_git]
-description = "Output a styled separator right after the directory when inside a git repository."
-command = ""
-format = "[](fg:lavender bg:yellow)"
-# Only when inside git repository
-when = "git rev-parse --is-inside-work-tree >/dev/null 2>&1"
-
-# Output a styled separator right after the directory when NOT inside a git repository.
-[custom.directory_separator_not_git]
-description = "Output a styled separator right after the directory when NOT inside a git repository."
-command = ""
-format = "[](fg:lavender)"
-# Only when NOT inside a git repository
-when = "! git rev-parse --is-inside-work-tree > /dev/null 2>&1"
-
-# Then, this `palettes` entry can go at the bottom of the TOML file
-# You may add additional palettes as desired.
 [palettes.catppuccin_macchiato]
 rosewater = "#f4dbd6"
 flamingo = "#f0c6c6"
@@ -124,4 +276,3 @@ surface0 = "#363a4f"
 base = "#24273a"
 mantle = "#1e2030"
 crust = "#181926"
-
