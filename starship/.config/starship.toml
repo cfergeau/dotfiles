@@ -92,9 +92,6 @@ Unknown = " "
 Void = " "
 Windows = "󰍲 "
 
-[package]
-symbol = "󰏗 "
-
 [pijul_channel]
 symbol = " "
 
@@ -190,6 +187,9 @@ disabled = true
 disabled = true
 
 [opa]
+disabled = true
+
+[package]
 disabled = true
 
 [perl]
