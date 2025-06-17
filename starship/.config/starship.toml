@@ -8,10 +8,14 @@ $directory\
 $git_branch\
 $git_status\
 [ ](fg:prev_bg)\
-$line_break\
+$fill$container
 $character"""
 
 palette = 'catppuccin_mocha'
+
+# Fill character (empty space) between the left and right prompt
+[fill]
+symbol = " "
 
 [os]
 disabled = false
