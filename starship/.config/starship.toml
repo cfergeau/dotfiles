@@ -8,6 +8,7 @@ $directory\
 $git_branch\
 $git_status\
 [ ](fg:prev_bg)\
+$symbol( $git_commit$git_metrics$git_state)\
 $fill$container
 $character"""
 
