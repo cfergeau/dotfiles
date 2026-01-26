@@ -16,6 +16,7 @@
 	editor = nvim
 
 [alias]
+	dco-sign = "commit --amend -s -S --no-edit"
         ggrep = "grep --break --heading --line-number"
         tracks = "!f() { if p=`git rev-parse --symbolic-full-name @{u} 2>/dev/null`; then echo ${p}; fi; }; f"
         other-heads = "!f() { curref=$(git symbolic-ref -q HEAD); curref=${curref##*/}; g=$(git rev-parse --git-dir); l=$(ls ${g}/refs/heads | grep -v $curref); echo $l; }; f"
