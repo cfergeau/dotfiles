@@ -738,6 +738,7 @@ do
     gh 'neovim/nvim-lspconfig',
     gh 'mason-org/mason.nvim',
     gh 'mason-org/mason-lspconfig.nvim',
+    gh 'WhoIsSethDaniel/mason-tool-installer.nvim',
   }
 
   -- Automatically install LSPs and related tools to stdpath for Neovim
@@ -755,7 +756,7 @@ do
     -- You can add other tools here that you want Mason to install
   })
 
-  require('mason-lspconfig').setup { ensure_installed = ensure_installed }
+  require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
   for name, server in pairs(servers) do
     vim.lsp.config(name, server)
