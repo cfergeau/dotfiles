@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+#
+# Reject pushing commits whose message or added content contains
+# U+202F NARROW NO-BREAK SPACE. This character is easy to introduce
+# by accident (e.g. pasted from formatted text) and hard to spot
+# visually, so it's blocked here instead.
+
+set -eu
+
+zero=0000000000000000000000000000000000000000
+# UTF-8 encoding of U+202F NARROW NO-BREAK SPACE
+pattern=$'\xe2\x80\xaf'
+
+found=0
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+    # Deleting a branch/tag: nothing to check.
+    [ "$local_sha" = "$zero" ] && continue
+
+    if [ "$remote_sha" = "$zero" ]; then
+        # New branch/tag: check everything reachable from it.
+        range="$local_sha"
+    else
+        range="$remote_sha..$local_sha"
+    fi
+
+    commits=$(git rev-list "$range" 2>/dev/null || true)
+
+    for commit in $commits; do
+        if git log -1 --format=%B "$commit" | grep -aF "$pattern" -q; then
+            echo "error: commit $commit message contains U+202F (narrow no-break space)" >&2
+            found=1
+        fi
+
+        if git show --format= -p "$commit" | grep -a '^+' | grep -v '^+++' | grep -aF "$pattern" -q; then
+            echo "error: commit $commit adds content containing U+202F (narrow no-break space)" >&2
+            found=1
+        fi
+    done
+done
+
+if [ "$found" -eq 1 ]; then
+    echo "" >&2
+    echo "Push rejected: remove U+202F (narrow no-break space) characters before pushing." >&2
+    echo "Find them with: grep -rnF \$'\\xe2\\x80\\xaf' <path>" >&2
+    exit 1
+fi
+
+exit 0
