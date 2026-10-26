@@ -10,7 +10,7 @@
 [user]
 	name = Christophe Fergeau
 	email = cfergeau@redhat.com
-	signingKey = /var/home/teuf/.ssh/id_ed25519_sk.pub
+	signingKey = ~/.ssh/id_ed25519_sk.pub
 
 [core]
 	editor = nvim
@@ -32,7 +32,7 @@
                 while read branch; do \
                 git log -1 --format=format:\"%Cred$branch:%Cblue %s %Cgreen%h%Creset (%ar)\" $branch; \
                 done'"
-	bb = !/home/teuf/.local/bin/git-better-branch.sh
+	bb = !~/.local/bin/git-better-branch.sh
 	wdiff = diff --word-diff
 [init]
 	defaultBranch = main
