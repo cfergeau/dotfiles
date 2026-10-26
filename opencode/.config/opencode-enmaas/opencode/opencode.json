@@ -1,0 +1,38 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "enmaas/rits/zai-org/glm-5-3",
+  "update": "disable",
+  "providers": {
+    "enmaas": {
+      "name": "EnMaaS",
+      "package": "@opencode/ai/providers/openai-compatible",
+      "settings": {
+        "baseURL": "https://api.enmaas.devshift.net/v1",
+        "apiKey": "{file:~/.config/opencode-enmaas/enmaas-key.txt}"
+      },
+      "models": {
+        "rits/zai-org/glm-5-3": {
+          "name": "GLM 5.3",
+          "limit": { "context": 1000000, "output": 65536 }
+        }
+      }
+    },
+    "openai": {
+      "settings": {
+        "baseURL": "https://api.enmaas.devshift.net/v1",
+        "apiKey": "{file:~/.config/opencode-enmaas/enmaas-key.txt}"
+      }
+    },
+    "anthropic": {
+      "settings": {
+        "baseURL": "https://api.enmaas.devshift.net/v1",
+        "apiKey": "{file:~/.config/opencode-enmaas/enmaas-key.txt}"
+      },
+      "models": {
+        "claude-opus-5-5": {
+          "compatibility": { "supportsThinkingBlockBinding": false }
+        }
+      }
+    }
+  }
+}

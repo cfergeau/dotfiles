@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -exr
+
+export XDG_CONFIG_HOME="$HOME/.config/opencode-enmaas"
+export XDG_DATA_HOME="$HOME/.local/share/opencode-enmaas"
+if [ "$#" -eq 1 ]; then
+  opencode "$@";
+else
+  opencode --standalone;
+fi
